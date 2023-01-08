@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draw a blue rectangle (canvas version)</title>
+  </head>
+  <body onload="main()">
+    <!-- 例 2.1 -->
+    <canvas id="example" width="400" height="400">
+      Please use a browser that supports "canvas"
+    </canvas>
+    <script>
+      function main() {
+        var canvas = document.getElementById("example");
+        if (!canvas) {
+          console.log("Faild to retrieve the <canvas> element");
+          return;
+        }
+
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "rgba(0,0,255,1.0)";
+        ctx.fillRect(120, 10, 150, 150);
+      }
+    </script>
+  </body>
+</html>

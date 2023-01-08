@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clear canvas</title>
+    <script src="./js/webgl-utils.js"></script>
+    <script src="./js/webgl-debug.js"></script>
+    <script src="./js/cuon-utils.js"></script>
+  </head>
+  <body onload="main()">
+    <!-- 例 2.1 -->
+    <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports "canvas"
+    </canvas>
+    <script>
+      function main() {
+        var canvas = document.getElementById("webgl");
+        if (!canvas) {
+          console.log("Faild to retrieve the <canvas> element");
+          return;
+        }
+
+        var gl = getWebGLContext(canvas); // 屏蔽了各大浏览器差异的 canvas.getContext('webgl') 函数
+        if (!gl) {
+          console.log("Faild to get the rendering context for WebGL");
+          return;
+        }
+
+        // 指定清空 <canvas> 的颜色
+        gl.clearColor(1.0, 1.0, 0.0, 1.0);
+
+        gl.clear(gl.COLOR_BUFFER_BIT);
+      }
+    </script>
+  </body>
+</html>
