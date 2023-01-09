@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draw pointer (2)</title>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+  </head>
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400"
+      >Please use a browser that supports "canvas"</canvas
+    >
+    <script>
+      // 1. 获取canvas 元素
+      // 2. 获取 gl 上下文
+      // 3. 初始化着色器
+      // 4. 获取 a_Position 在webgl中的存储位置
+      // 5. 为 a_Position 赋值
+      // 6. 设置 canvas 背景色
+      // 7. 清空 canvas
+      // 8. 绘制
+      var VSHADER_SOURCE = `
+        //<存储限定符><类型><变量名>
+        attribute vec4 a_Position;
+        attribute float a_PointSize;
+        void main() {
+            gl_Position = a_Position;
+            gl_PointSize = a_PointSize;
+        }
+      `;
+      var FSHADER_SOURCE = `
+        void main() {
+            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+      `;
+
+      function main() {
+        const canvas = document.getElementById("webgl");
+
+        if (!canvas) {
+          console.log("Faild to retrieve the <canvas> element");
+          return;
+        }
+
+        const gl = getWebGLContext(canvas);
+        if (!gl) {
+          console.log("Faild to get the rendering context for WebGL");
+          return;
+        }
+
+        if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+          console.log("Failed to initialize shaders.");
+          return;
+        }
+
+        // 获取 webgl 中顶点变量的位置
+        var a_Position = gl.getAttribLocation(gl.program, "a_Position");
+
+        if (a_Position < 0) {
+          console.log("Failed to get storage location of a_Position");
+          return;
+        }
+
+        // vertexAttrib3f 同族函数
+        // vertexAttrib1f(a_Position, 0.0)
+        // vertexAttrib2f(a_Position, 0.0, 0.0)
+        // vertexAttrib4f(a_Position, 0.0, 0.0, 0.0, 1.0)
+        // vertexAttrib1fv(a_Position, new Float32Array([0.5]));
+        // vertexAttrib2fv(a_Position, new Float32Array([0.5, 0.0]));
+        // vertexAttrib3fv(a_Position, new Float32Array([0.5, 0.0, 0.0]));
+        // vertexAttrib4fv(a_Position, new Float32Array([0.5, 0.0, 0.0, 1.0]))
+        gl.vertexAttrib3f(a_Position, 0.0, 0.0, 0.0); // 将顶点位置传输给 attribute 变量
+        gl.vertexAttrib4fv(a_Position, new Float32Array([0.5, 0.0, 0.0, 1.0]));
+
+        // 获取 webgl 中顶点变量的位置
+        var a_PointSize = gl.getAttribLocation(gl.program, "a_PointSize");
+
+        if (a_PointSize < 0) {
+          console.log("Failed to get storage location of a_PointSize");
+          return;
+        }
+
+        gl.vertexAttrib1f(a_PointSize, 50.0);
+
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        gl.drawArrays(gl.POINTS, 0, 1);
+      }
+    </script>
+  </body>
+</html>
