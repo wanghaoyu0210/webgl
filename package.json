@@ -1,0 +1,26 @@
+{
+  "name": "webgl",
+  "version": "1.0.0",
+  "description": "webgl入门",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "release": "release-please"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wanghaoyu0210/webgl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wanghaoyu0210/webgl/issues"
+  },
+  "homepage": "https://github.com/wanghaoyu0210/webgl#readme",
+  "dependencies": {
+    "release-please": "^15.9.2"
+  }
+}
