@@ -7,14 +7,17 @@
     "lib": "lib"
   },
   "scripts": {
-    "release": "release-please"
+    "release": "release-please release-pr --versioning-strategy always-bump-patch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wanghaoyu0210/webgl.git"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "haoyu.wang",
+    "email": "haoyu.wang@siemens.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wanghaoyu0210/webgl/issues"
